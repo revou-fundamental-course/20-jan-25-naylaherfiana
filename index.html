@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kalkulator BMI</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <h2 class="text">Kalkulator BMI</h2>
+  </header>
+
+  <!-- Body -->
+
+  <body>
+    <!-- Intro -->
+    <article>
+      <p>Berat badan ideal adalah impian semua orang. Tidak hanya memiliki bentuk tubuh yang menunjang penampilan, berat
+        badan ideal juga menandakan kondisi tubuh yang sehat. Bagaimana denganmu?
+        Yuk, hitung sekarang di kalkulator BMI.
+      </p>
+    </article>
+
+    <!-- Form -->
+    <section>
+      <form id="bmiForm">
+        <div class="form-table">
+          <label for="kelamin">Jenis Kelamin</label>
+          <div>
+            <input type="radio" id="pria" name="kelamin" value="pria">Pria</input>
+            <input type="radio" id="wanita" name="kelamin" value="wanita">Wanita</input>
+          </div>
+        </div>
+        <div class="form-table">
+          <label for="berat">Berat Badan (kg)</label><br>
+          <input type="number" id="berat">
+        </div>
+        <div class="form-table">
+          <label for="usia">Usia (tahun)</label><br>
+          <input type="number" id="usia">
+        </div>
+        <div class="form-table">
+          <label for="tinggi">Tinggi Badan (cm)</label><br>
+          <input type="number" id="tinggi">
+        </div>
+        <div>
+          <button class="button button1" onclick="hitungBMI(event)">Hitung BMI</button>
+          <button class="button button2" onclick="resetForm(event)">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Body Article -->
+    <div>
+      <article>
+        <h3 class="text">Keunggulan Fitur</h3>
+        <p>1. Menghitung berat badan <br>
+          2. Menentukan kategori berat badan ideal atau tidak <br>
+          3. Mempersiapkan program penurunan berat badan</p>
+        <p>Kalkulator ini hanya boleh digunakan Oleh orang dewasa (wanita hamil atau menyusui tidak boleh
+          mengandalkan pembacaan BMI ini) dan tidak ada tindakan yang harus diambil berdasarkan nilainya
+          selain berkonsultasi dengan orang yang memenuhi syarat seperti dokter.</p>
+
+        <p>Kalkulator akan memberi Anda gambaran tentang perbandingan berat badan Anda dengan nilai
+          umum. Indeks Massa Tubuh (atau BMI) dihitung sebagai berat badan Anda (dalam kilogram) dibagi
+          dengan kuadrat tinggi badan Anda (dalam meter) atau BMI = Kg/M2.</p>
+      </article>
+    </div>
+
+    <!-- Hasil -->
+    <div id="hasil-container" style="display: none;">
+      <br>
+      <div>
+        <h2 class="text">Hasil</h2>
+        <!-- window hasil -->
+        <section class="center">
+          <h3 class="text">BMI Anda</h3>
+          <h1 class="text" id="hasil-bmi"></h1>
+          <p class="text" id="status"></p>
+          <button class="button button1">Download hasil BMI</button>
+        </section>
+
+        <!-- Explanation -->
+        <div>
+          <p class="text" id="batas"></p>
+
+
+          <!-- Berat badan kurang -->
+          <div id="hasil-container-kurang" style="display: none;">
+            <p>Anda berada dalam kategori berat badan kurang, ini menandakan Anda perlu menambah berat badan hingga
+              mencapai batas normal. Cara terbaik untuk menaikkan berat badan adalah dengan mengonsumsi makanan bergizi
+              tinggi dan rutin berolahraga.
+            </p>
+          </div>
+
+          <!-- Berat ideal -->
+          <div id="hasil-container-ideal" style="display: none;">
+            <p>Anda berada dalam kategori berat badan ideal, ini menandakan bahwa Anda memiliki berat badan yang sehat.
+              Untuk menjaga berat badan ideal, Anda dianjurkan untuk tetap mengonsumsi makanan sehat dan rutin
+              berolahraga.
+            </p>
+          </div>
+
+          <!-- Berat berlebih -->
+          <div id="hasil-container-lebih" style="display: none;">
+            <p>Anda berada dalam kategori overweight atau berat badan berlebih. Cara terbaik untuk menurunkan berat
+              badan
+              adalah dengan mengatur kalor makanan yang dikonsumsi dan berolahraga. Jika BMI Anda berada dalam kategori
+              ini maka Anda dianjurkan untuk menurunkan berat badan hingga batas normal.
+            </p>
+          </div>
+
+          <button class="button button1">Konsultasi Ahli Gizi Via Aplikasi</button>
+          <button class="button button1">Registrasi Online Ahli Gizi</button>
+          <p>BMI tidak sepenuhnya mewakili diagnosis menyeluruh dari kesehatan tubuh dan resiko penyakit
+            seseorang. Anda perlu konsultasi lebih lanjut mengenai resiko dan kekhawatiran Anda terkait dengan
+            berat badan Anda.</p>
+        </div>
+
+
+        <!-- Penyakit -->
+        <div>
+          <section class="center">
+
+            <!-- Berat kurang -->
+            <div id="hasil-container-penyakit-kurang" style="display: none;">
+              <h3 class="text">Beberapa risiko kesehatan akibat berat badan kurang</h3>
+              <p class="text">Malnutrisi <br>
+                Osteoporosis <br>
+                Sistem kekebalan tubuh melemah <br>
+                Masalah kesuburan <br></p>
+            </div>
+
+            <!-- Berat ideal -->
+            <div id="hasil-container-penyakit-ideal" style="display: none;">
+              <h3 class="text">Manfaat berat badan ideal bagi kesehatan</h3>
+              <p class="text">Mengurangi risiko penyakit kronis seperti diabetes dan hipertensi <br>
+                Menjaga kebugaran dan energi tubuh <br>
+                Meningkatkan kepercayaan diri dan kualitas hidup <br></p>
+            </div>
+
+            <!-- Berat lebih -->
+            <div id="hasil-container-penyakit-lebih" style="display: none;">
+              <h3 class="text">Beberapa penyakit yang berasal dari kegemukan</h3>
+              <p class="text">Diabetes <br>
+                Hipertensi <br>
+                Sakit Jantung <br>
+                Osteoarthritis <br></p>
+            </div>
+
+            <button class="button button1">Konsultasi Dokter Via Aplikasi</button>
+            <button class="button button1">Registrasi Online Sekarang</button>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- Footer -->
+  <footer class="center">
+    <h3 class="text">Download Aplikasi</h3>
+    <img src="downloadNow.png" alt="downloadNow">
+    <p class="text">naylaherfiana@2025</p>
+  </footer>
+</body>
+
+</html>
