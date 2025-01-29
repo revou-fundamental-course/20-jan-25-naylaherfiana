@@ -1,6 +1,14 @@
 function hitungBMI(event) {
   event.preventDefault();
 
+  var beratInput = document.getElementById("berat");
+  var tinggiInput = document.getElementById("tinggi");
+  var hasilContainer = document.getElementById("hasil-container");
+
+  if ((beratInput.value !== "" || tinggiInput.value !== "") && hasilContainer.style.display === "block") {
+    scrollHasil(statusKey, bmi, statusDetails);
+  }
+
   var berat = parseFloat(document.getElementById("berat").value);
   var tinggi = parseFloat(document.getElementById("tinggi").value) / 100;
 
@@ -19,17 +27,17 @@ function hitungBMI(event) {
     normal: {
       status: "Normal (ideal)",
       batas: "Hasil BMI antara 18.5 dan 24.9",
-      elements: ["hasil-container-ideal"],
+      elements: ["hasil-container-ideal", "hasil-container-penyakit-ideal"],
     },
     lebih: {
       status: "Kelebihan berat badan",
       batas: "Hasil BMI antara 25.0 dan 29.9",
-      elements: ["hasil-container-lebih"],
+      elements: ["hasil-container-lebih", "hasil-container-penyakit-lebih"],
     },
     obesitas: {
       status: "Kegemukan (Obesitas)",
       batas: "Hasil BMI lebih dari 30.0",
-      elements: ["hasil-container-lebih"],
+      elements: ["hasil-container-lebih", "hasil-container-penyakit-lebih"],
     },
   };
 
@@ -44,6 +52,10 @@ function hitungBMI(event) {
     statusKey = "obesitas";
   }
 
+  scrollHasil(statusKey, bmi, statusDetails);
+}
+
+function scrollHasil(statusKey, bmi, statusDetails) {
   var statusObj = statusDetails[statusKey];
   var status = statusObj.status;
   var batas = statusObj.batas;
@@ -56,9 +68,10 @@ function hitungBMI(event) {
   document.getElementById("status").textContent = status;
   document.getElementById("batas").textContent = batas;
 
-  document.getElementById("hasil-container").style.display = "block";
+  var hasilContainer = document.getElementById("hasil-container");
+  hasilContainer.style.display = "block";
 
-  document.getElementById("hasil-container").scrollIntoView({
+  hasilContainer.scrollIntoView({
     behavior: "smooth",
   });
 }
@@ -68,6 +81,12 @@ function resetForm(event) {
 
   document.getElementById("bmiForm").reset();
   document.getElementById("hasil-container").style.display = "none";
+
+  var hasilContainers = ["hasil-container-kurang", "hasil-container-penyakit-kurang", "hasil-container-ideal", "hasil-container-penyakit-ideal", "hasil-container-lebih", "hasil-container-penyakit-lebih"];
+
+  hasilContainers.forEach(function (id) {
+    document.getElementById(id).style.display = "none";
+  });
 
   window.scrollTo({
     top: 0,
